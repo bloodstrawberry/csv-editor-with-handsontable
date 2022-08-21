@@ -1,6 +1,6 @@
 // library.js
 
-const DELIMITER = ',';
+const DELIMITER = ",";
 const APOSTROPHE = '"';
 
 export const handleOnDragLeave = (e, setState) => {
@@ -24,48 +24,44 @@ export const handleOnDrop = (e, setState, setCsvObject) => {
   fileReader.readAsText(file, "utf-8"); // or euc-kr
 
   fileReader.onload = function () {
-    //console.log(fileReader.result); 
+    //console.log(fileReader.result);
     parsingCsv(fileReader.result, setCsvObject);
     return;
   };
 
   setState(false);
-  return false; 
+  return false;
 };
 
 export const handleUpload = (e, setCsvObject) => {
   let file = e.target.files[0];
   let fileReader = new FileReader();
-  
-  if(file === undefined) return; /* 방어 코드 추가 */
+
+  if (file === undefined) return; /* 방어 코드 추가 */
 
   fileReader.readAsText(file, "utf-8"); // or euc-kr
 
   fileReader.onload = function () {
-    //console.log(fileReader.result); 
+    //console.log(fileReader.result);
     parsingCsv(fileReader.result, setCsvObject);
   };
-}
+};
 
 export const mySplit = (line, delimiter, ignore) => {
   let spt = [];
   let tmp = "";
   let flag = false;
 
-  for(let i = 0; i < line.length; i++)
-  {
-    if(ignore === line[i] && flag === true) 
-    {
+  for (let i = 0; i < line.length; i++) {
+    if (ignore === line[i] && flag === true) {
       flag = false;
       continue;
-    }
-    else if(ignore === line[i])
-    {
+    } else if (ignore === line[i]) {
       flag = true;
       continue;
-    } 
-    
-    if(line[i] === delimiter && flag === false) {
+    }
+
+    if (line[i] === delimiter && flag === false) {
       spt.push(tmp);
       tmp = "";
 
@@ -78,7 +74,7 @@ export const mySplit = (line, delimiter, ignore) => {
   spt.push(tmp);
 
   return spt;
-}
+};
 
 export const parsingCsv = (file, setCsvObject) => {
   let height, width;
@@ -94,9 +90,8 @@ export const parsingCsv = (file, setCsvObject) => {
   console.log(sptLine);
 
   height = 0;
-  for(let line of sptLine)
-  {
-    if(line === "") continue;
+  for (let line of sptLine) {
+    if (line === "") continue;
 
     let spt = mySplit(line, DELIMITER, APOSTROPHE);
 
@@ -112,26 +107,40 @@ export const parsingCsv = (file, setCsvObject) => {
   setCsvObject(obj);
 
   return;
-}
+};
 
 export const makeTable = (csvObject, height, width) => {
-    let table = [];
-      
-    for(let h = 0; h < csvObject.HEIGHT; h++)
-    {
-      let line = [];
-      for(let w = 0; w < csvObject.WIDTH; w++) line.push(csvObject.csv[h][w]);
-      for(let w = 0; w < width; w++) line.push("");
-  
-      table.push(line);
-    }
-  
-    for(let h = 0; h < height; h++) 
-    {
-      let dummy = [];
-      for(let w = 0; w < csvObject.WIDTH + width; w++) dummy.push("");
-      table.push(dummy);
-    }
-  
-    return table;
+  let table = [];
+
+  for (let h = 0; h < csvObject.HEIGHT; h++) {
+    let line = [];
+    for (let w = 0; w < csvObject.WIDTH; w++) line.push(csvObject.csv[h][w]);
+    for (let w = 0; w < width; w++) line.push("");
+
+    table.push(line);
   }
+
+  for (let h = 0; h < height; h++) {
+    let dummy = [];
+    for (let w = 0; w < csvObject.WIDTH + width; w++) dummy.push("");
+    table.push(dummy);
+  }
+
+  return table;
+};
+
+export const downLoadCsv = (contents, fileName = "MyFile.csv") => {
+  let fileDown = "data:csv;charset=utf-8," + contents;
+
+  let encodedUri = encodeURI(fileDown);
+  let link = document.createElement("a");
+
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", fileName);
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+};
