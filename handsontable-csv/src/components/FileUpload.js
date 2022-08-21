@@ -15,7 +15,7 @@ const FileUpload = () => {
       onDragLeave={(e) => lib.handleOnDragLeave(e, setDropFlag)}
     >
       <p>drag & drop</p>
-      <input type="file" accept=".csv"/>
+      <input type="file" accept=".csv" onChange={(e) => lib.handleUpload(e)}/>
     </div>
   );
 };
