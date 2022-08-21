@@ -77,37 +77,45 @@ export const mySplit = (line, delimiter, ignore) => {
 };
 
 export const parsingCsv = (file, setCsvObject) => {
-  let height, width;
-  let obj = {
-    HEIGHT: 0,
-    WIDTH: 0,
-    csv: [],
-  };
-
-  obj.csv = [];
-
-  let sptLine = file.split(/\r\n|\n/);
-  console.log(sptLine);
-
-  height = 0;
-  for (let line of sptLine) {
-    if (line === "") continue;
-
-    let spt = mySplit(line, DELIMITER, APOSTROPHE);
-
-    obj.csv.push(spt);
-    height++;
+    let height, width;
+    let obj = {
+      HEIGHT: 0,
+      WIDTH: 0,
+      csv: [],
+    };
+  
+    obj.csv = [];
+  
+    let sptLine = file.split(/\r\n|\n/);
+    
+    let maxLength = 0;
+    for(let line of sptLine) {
+      let spt = mySplit(line, DELIMITER, APOSTROPHE);
+      if(maxLength < spt.length) maxLength = spt.length;
+    }
+    
+    height = 0;
+    for(let line of sptLine)
+    {
+      if(line === "") continue;
+  
+      let spt = mySplit(line, DELIMITER, APOSTROPHE);
+      let pushCount = maxLength - spt.length;
+      for(let i = 0; i < pushCount; i++) spt.push("");
+  
+      obj.csv.push(spt);
+      height++;
+    }
+  
+    width = obj.csv[0].length;
+  
+    obj.HEIGHT = height;
+    obj.WIDTH = width;
+  
+    setCsvObject(obj);
+  
+    return;
   }
-
-  width = obj.csv[0].length;
-
-  obj.HEIGHT = height;
-  obj.WIDTH = width;
-
-  setCsvObject(obj);
-
-  return;
-};
 
 export const makeTable = (csvObject, height, width) => {
   let table = [];
