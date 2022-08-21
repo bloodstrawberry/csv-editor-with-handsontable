@@ -17,7 +17,7 @@ const App = () => {
     <div>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
-        <MyTable/>
+        <MyTable csvFile={csvObject}/>
         <FileUpload setCsvObject={setCsvObject} />
       </div>
     </div>
