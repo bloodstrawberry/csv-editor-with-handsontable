@@ -1,13 +1,13 @@
 // App.js
 import React from "react";
 //import * as lib from "./components/library";
-import DragDropTest from "./components/DragDropTest";
+import FileUpload from "./components/FileUpload";
 
 const App = () => {
   return (
     <div>
       <div className="App">
-        <DragDropTest />
+        <FileUpload />
       </div>
     </div>
   );
