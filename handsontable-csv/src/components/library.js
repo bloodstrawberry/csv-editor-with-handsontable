@@ -144,3 +144,27 @@ export const downLoadCsv = (contents, fileName = "MyFile.csv") => {
 
   document.body.removeChild(link);
 };
+
+export const rowToAlpha = (row) => {
+  const numToAlpha = [
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+    "U", "V", "W", "X", "Y", "Z",
+  ];
+
+  if (row <= 26) return numToAlpha[row - 1];
+
+  if (26 < row && row <= 26 * 26) {
+    let front = numToAlpha[parseInt(row / 26) - 1];
+    let back = numToAlpha[(row % 26) - 1];
+
+    if (row % 26 === 0) {
+      back = "Z";
+      front = numToAlpha[parseInt(row / 26) - 2];
+    }
+
+    return front + back;
+  }
+
+  return "too_long";
+};
