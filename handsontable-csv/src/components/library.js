@@ -113,3 +113,25 @@ export const parsingCsv = (file, setCsvObject) => {
 
   return;
 }
+
+export const makeTable = (csvObject, height, width) => {
+    let table = [];
+      
+    for(let h = 0; h < csvObject.HEIGHT; h++)
+    {
+      let line = [];
+      for(let w = 0; w < csvObject.WIDTH; w++) line.push(csvObject.csv[h][w]);
+      for(let w = 0; w < width; w++) line.push("");
+  
+      table.push(line);
+    }
+  
+    for(let h = 0; h < height; h++) 
+    {
+      let dummy = [];
+      for(let w = 0; w < csvObject.WIDTH + width; w++) dummy.push("");
+      table.push(dummy);
+    }
+  
+    return table;
+  }
