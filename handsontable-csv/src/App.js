@@ -1,7 +1,8 @@
-// App.js
+//App.js
 import React, { useState } from "react";
 //import * as lib from "./components/library";
 import FileUpload from "./components/FileUpload";
+import MyTable from "./components/MyTable";
 
 const csvObjectDefault = {
   HEIGHT: 0,
@@ -16,6 +17,7 @@ const App = () => {
     <div>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
+        <MyTable/>
         <FileUpload setCsvObject={setCsvObject} />
       </div>
     </div>
