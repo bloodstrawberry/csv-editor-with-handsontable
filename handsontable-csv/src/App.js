@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import FileUpload from "./components/FileUpload";
 import MyTable from "./components/MyTable";
+import * as mnode from "./components/nodelibrary";
 
 const csvObjectDefault = {
   HEIGHT: 0,
@@ -11,11 +12,8 @@ const csvObjectDefault = {
 };
 
 const nodeTest = () => {
-  let str = "hello";
-  let num = 1234;
-  fetch(`http://192.168.55.120:3002/nodetest?str=${str}&num=${num}`)
-  .then((response) => response.json())
-  .then((data) => console.log(data));
+  let path = `C:\\Users\\vvv30\\github\\csv-editor-with-handsontable\\server`;
+  mnode.getFileFolderList(path); 
 }
 
 const App = () => {
