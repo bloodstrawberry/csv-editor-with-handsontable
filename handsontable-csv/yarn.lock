@@ -5425,6 +5425,11 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
+"interpret@^1.0.0":
+  "integrity" "sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA=="
+  "resolved" "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
+  "version" "1.4.0"
+
 "ip@^2.0.0":
   "integrity" "sha512-WKa+XuLG1A1R0UWhl2+1XQSi+fZWMsYKffMZTTYsiZaUD8k2yDAj5atimTUD2TZkyCkNEeYE5NhFZmupOGtjYQ=="
   "resolved" "https://registry.npmjs.org/ip/-/ip-2.0.0.tgz"
@@ -8235,6 +8240,13 @@
   dependencies:
     "picomatch" "^2.2.1"
 
+"rechoir@^0.6.2":
+  "integrity" "sha512-HFM8rkZ+i3zrV+4LQjwQ0W+ez98pApMGM3HUrN04j3CqzPOzl9nmP15Y8YXNm8QHGv/eacOVEjqhmWpkRV0NAw=="
+  "resolved" "https://registry.npmjs.org/rechoir/-/rechoir-0.6.2.tgz"
+  "version" "0.6.2"
+  dependencies:
+    "resolve" "^1.1.6"
+
 "recursive-readdir@^2.2.2":
   "integrity" "sha512-nRCcW9Sj7NuZwa2XvH9co8NPeXUBhZP7CRKJtU+cS6PW9FpCIFoI5ib0NT1ZrbNuPoRy0ylyCaUL8Gih4LSyFg=="
   "resolved" "https://registry.npmjs.org/recursive-readdir/-/recursive-readdir-2.2.2.tgz"
@@ -8419,7 +8431,7 @@
   "resolved" "https://registry.npmjs.org/resolve.exports/-/resolve.exports-1.1.0.tgz"
   "version" "1.1.0"
 
-"resolve@^1.1.7", "resolve@^1.10.0", "resolve@^1.14.2", "resolve@^1.19.0", "resolve@^1.20.0", "resolve@^1.22.0", "resolve@^1.22.1":
+"resolve@^1.1.6", "resolve@^1.1.7", "resolve@^1.10.0", "resolve@^1.14.2", "resolve@^1.19.0", "resolve@^1.20.0", "resolve@^1.22.0", "resolve@^1.22.1":
   "integrity" "sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw=="
   "resolved" "https://registry.npmjs.org/resolve/-/resolve-1.22.1.tgz"
   "version" "1.22.1"
@@ -8755,6 +8767,15 @@
   "integrity" "sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw=="
   "resolved" "https://registry.npmjs.org/shell-quote/-/shell-quote-1.7.3.tgz"
   "version" "1.7.3"
+
+"shelljs@^0.8.5":
+  "integrity" "sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow=="
+  "resolved" "https://registry.npmjs.org/shelljs/-/shelljs-0.8.5.tgz"
+  "version" "0.8.5"
+  dependencies:
+    "glob" "^7.0.0"
+    "interpret" "^1.0.0"
+    "rechoir" "^0.6.2"
 
 "side-channel@^1.0.4":
   "integrity" "sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw=="

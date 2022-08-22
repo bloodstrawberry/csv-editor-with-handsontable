@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //MyTable.js
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -114,6 +115,23 @@ const MyTable = ({ csvFile, fileUploadFlag, pathInfo, fileList, setFileList }) =
     return;
   };
 
+  const deleteFile = () => {
+    if(pathInfo.version === "" || pathInfo.country === "" || pathInfo.file === "") {
+      alert("version / country / file을 모두 선택하세요.");
+      return;
+    }
+
+    let filePath = `${mnode.PATH}/${pathInfo.version}/${pathInfo.country}`;
+    let fileName = `${filePath}/${pathInfo.file}`;
+    
+    let answer = window.confirm(`${fileName}를 정말 삭제하시겠습니까?`); 
+    if(answer === false) return;
+
+    mnode.deleteFiles(fileName, function() {
+      mnode.getFileList(filePath, "csv", setFileList);
+    });
+  }
+
   const selectCell = () => {
     let selected = myTable.getSelectedLast();
 
@@ -173,6 +191,7 @@ const MyTable = ({ csvFile, fileUploadFlag, pathInfo, fileList, setFileList }) =
         <div>
           <button onClick={csvDownLoad}>DOWNLOAD</button>
           <button onClick={saveFile}>SAVE</button>
+          <button onClick={deleteFile}>DELETE</button>
           <AutoSizeInput
             placeholder="파일 이름 입력"
             value={value}
