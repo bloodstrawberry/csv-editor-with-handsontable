@@ -54,16 +54,24 @@ const csvDownLoad = () => {
   return;
 };
 
-const MyTable = ({ csvFile, fileUploadFlag, pathInfo, fileList, setFileList }) => {
+const MyTable = ({
+  csvFile,
+  fileUploadFlag,
+  pathInfo,
+  fileList,
+  setFileList,
+}) => {
   const [displayIndex, setDisplayIndex] = useState("");
   const [displayCell, setDisplayCell] = useState("");
   const [value, setValue] = useState("");
 
   const saveFile = () => {
-    for(let name of fileList) {
-      if(name === value) {
-        let answer = window.confirm(`${name}이(가) 이미 있습니다.\n바꾸시겠습니까?`);
-        if(answer === false) return;
+    for (let name of fileList) {
+      if (name === value) {
+        let answer = window.confirm(
+          `${name}이(가) 이미 있습니다.\n바꾸시겠습니까?`
+        );
+        if (answer === false) return;
       }
     }
 
@@ -105,31 +113,75 @@ const MyTable = ({ csvFile, fileUploadFlag, pathInfo, fileList, setFileList }) =
     };
 
     axios
-      .post(`${mnode.MY_SERVER}/fileSave?fileName=${fileName}`, { file: realTable }, config)
+      .post(
+        `${mnode.MY_SERVER}/fileSave?fileName=${fileName}`,
+        { file: realTable },
+        config
+      )
       .then((response) => {
-        if(response.status === 200) mnode.getFileList(filePath, "csv", setFileList);
+        if (response.status === 200)
+          mnode.getFileList(filePath, "csv", setFileList);
       });
 
-    alert(`${value} 파일이 ${pathInfo.version}/${pathInfo.country}에 저장되었습니다.`);
+    alert(
+      `${value} 파일이 ${pathInfo.version}/${pathInfo.country}에 저장되었습니다.`
+    );
 
     return;
   };
 
   const deleteFile = () => {
-    if(pathInfo.version === "" || pathInfo.country === "" || pathInfo.file === "") {
+    if (pathInfo.version === "" || pathInfo.country === "" || pathInfo.file === "") {
       alert("version / country / file을 모두 선택하세요.");
       return;
     }
 
     let filePath = `${mnode.PATH}/${pathInfo.version}/${pathInfo.country}`;
     let fileName = `${filePath}/${pathInfo.file}`;
-    
-    let answer = window.confirm(`${fileName}를 정말 삭제하시겠습니까?`); 
-    if(answer === false) return;
 
-    mnode.deleteFiles(fileName, function() {
+    let answer = window.confirm(`${fileName}를 정말 삭제하시겠습니까?`);
+    if (answer === false) return;
+
+    mnode.deleteFiles(fileName, function () {
       mnode.getFileList(filePath, "csv", setFileList);
     });
+  };
+
+  const uploadFiles = (e) => {
+    if(e.target.files.length === 0) return;
+
+    let objFileList = {}; /* 중복 체크를 위한 object */
+    for(let item of fileList) objFileList[item] = true;
+
+    let uploadFileList = [];
+    for(let i = 0; i < e.target.files.length; i++) {
+      let fileName = e.target.files[i].name;
+
+      if(objFileList[fileName] === true) {
+        let answer = window.confirm(`${fileName}이(가) 이미 있습니다.\n바꾸시겠습니까?`);
+        if(answer === false) continue;
+      }
+      
+      uploadFileList.push(e.target.files[i]);
+    }
+
+    if(uploadFileList.length === 0) return;
+    
+    let path = `${mnode.PATH}/${pathInfo.version}/${pathInfo.country}`;
+    mnode.uploadFiles(path, uploadFileList, function () {
+      mnode.getFileList(path, "csv", setFileList);
+    });
+
+    return;
+  }
+
+  const onClickUpload = () => {
+    if(pathInfo.version === "" || pathInfo.country === "") {
+      alert("version / country를 모두 선택하세요.");
+      return;
+    }
+
+    document.getElementById("hidden-upload").click();
   }
 
   const selectCell = () => {
@@ -192,6 +244,7 @@ const MyTable = ({ csvFile, fileUploadFlag, pathInfo, fileList, setFileList }) =
           <button onClick={csvDownLoad}>DOWNLOAD</button>
           <button onClick={saveFile}>SAVE</button>
           <button onClick={deleteFile}>DELETE</button>
+          <button onClick={onClickUpload}>UPLOAD</button>
           <AutoSizeInput
             placeholder="파일 이름 입력"
             value={value}
@@ -201,6 +254,14 @@ const MyTable = ({ csvFile, fileUploadFlag, pathInfo, fileList, setFileList }) =
             <span>{displayIndex}</span>
             <input value={displayCell} onChange={setValueCell} />
           </div>
+          <input
+            type="file"
+            id="hidden-upload"
+            style={{ visibility: "hidden" }}
+            accept=".csv"
+            multiple
+            onChange={(e) => uploadFiles(e)}
+          />
           <div id="hot-app"></div>
         </div>
       )}
