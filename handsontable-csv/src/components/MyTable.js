@@ -1,5 +1,6 @@
 //MyTable.js
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import * as lib from "./library.js";
 
 import "handsontable/dist/handsontable.full.css";
@@ -48,7 +49,7 @@ const csvDownLoad = () => {
   return;
 };
 
-const MyTable = ({ csvFile }) => {
+const MyTable = ({ csvFile, fileUploadFlag }) => {
   const [displayIndex, setDisplayIndex] = useState("");
   const [displayCell, setDisplayCell] = useState("");
   
@@ -101,15 +102,23 @@ const MyTable = ({ csvFile }) => {
 
   return (
     <div>
-      <button onClick={csvDownLoad}>DOWNLOAD</button>
-      <div>
-        <span>{displayIndex}</span>
-        <input value={displayCell} onChange={setValueCell} />
-      </div>
-      <div id="hot-app">
-      </div>
+      {fileUploadFlag && (
+        <div>
+          <button onClick={csvDownLoad}>DOWNLOAD</button>
+          <div>
+            <span>{displayIndex}</span>
+            <input value={displayCell} onChange={setValueCell} />
+          </div>
+          <div id="hot-app"></div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default MyTable;
+function mapStateToProps(state, ownProps) {
+  //console.log(state);
+  return { fileUploadFlag: state };
+}
+
+export default connect(mapStateToProps)(MyTable);

@@ -15,7 +15,7 @@ export const handleDragOver = (e, setState) => {
   return false;
 };
 
-export const handleOnDrop = (e, setState, setCsvObject) => {
+export const handleOnDrop = (e, setState, setCsvObject, flagOff) => {
   e.preventDefault();
 
   let file = e.dataTransfer.files[0];
@@ -30,10 +30,11 @@ export const handleOnDrop = (e, setState, setCsvObject) => {
   };
 
   setState(false);
+  flagOff();
   return false;
 };
 
-export const handleUpload = (e, setCsvObject) => {
+export const handleUpload = (e, setCsvObject, flagOff) => {
   let file = e.target.files[0];
   let fileReader = new FileReader();
 
@@ -45,6 +46,7 @@ export const handleUpload = (e, setCsvObject) => {
     //console.log(fileReader.result);
     parsingCsv(fileReader.result, setCsvObject);
   };
+  flagOff();
 };
 
 export const mySplit = (line, delimiter, ignore) => {
