@@ -14,6 +14,7 @@ const csvObjectDefault = {
 };
 
 const nodeTest = () => {
+
   mnode.getFileFolderList(mnode.PATH, "csv");
   return;
 }
@@ -42,16 +43,24 @@ const App = () => {
         country={country}
         setCountry={setCountry}
       />
-      
+
       <hr style={{ borderColor: "grey" }} />
-      
-      <MyFileList fileList={fileList} setFile={setFile}/>
-      
+
+      <MyFileList fileList={fileList} setFile={setFile} />
+
       <button onClick={nodeTest}>서버 연결</button>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
-        <FileUpload setCsvObject={setCsvObject} pathInfo={{ version, country, file }} />
-        <MyTable csvFile={csvObject} file={file}/>
+        <FileUpload
+          setCsvObject={setCsvObject}
+          pathInfo={{ version, country, file }}
+        />
+        <MyTable
+          csvFile={csvObject}
+          pathInfo={{ version, country, file }}
+          fileList={fileList}
+          setFileList={setFileList}
+        />
       </div>
     </div>
   );
