@@ -37,4 +37,9 @@
       color: #fff;
       @include btn-style(rgb(255, 65, 97));
     }
+
+    .selected-country {
+        color: #fff;
+        @include btn-style(#28a745); 
+    }
   }

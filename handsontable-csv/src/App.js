@@ -20,13 +20,17 @@ const nodeTest = () => {
 const App = () => {
   const [csvObject, setCsvObject] = useState(csvObjectDefault);
   const [version, setVersion] = useState("");
+  const [country, setCountry] = useState("");
 
   return (
     <div>
       <MyToggles
         version={version}
         setVersion={setVersion}
+        country={country}
+        setCountry={setCountry}
       />
+      
       <button onClick={nodeTest}>서버 연결</button>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">

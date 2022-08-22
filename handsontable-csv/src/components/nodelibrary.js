@@ -9,8 +9,8 @@ export const getFileFolderList = (path, fileExtension) => {
     .then((data) => console.log(data));
 }
 
-export const getVersionList = (setState) => {
-    fetch(`${MY_SERVER}/getFileFolderList?path=${PATH}`)
+export const getFolderList = (setState, path) => {
+    fetch(`${MY_SERVER}/getFileFolderList?path=${path}`)
     .then((response) => response.json())
     .then((data) => setState(data.folderList.map(list => list.name)));
 }

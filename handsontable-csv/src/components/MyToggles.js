@@ -3,34 +3,44 @@ import React, { useState, useEffect } from "react";
 import * as mnode from "./nodelibrary";
 import "../css/MyToggles.scss";
 
-const MyToggles = ({ version, setVersion }) => {
+const MyToggles = ({ version, setVersion, country, setCountry }) => {
   const LOCAL_STORAGE = {
     LS_VERSION: setVersion,
+    LS_COUNTRY: setCountry,
   };
 
   const [versionList, setVersionList] = useState([]);
+  const [countryList, setCountryList] = useState([]);
 
   const onClickToggles = (value, setState, lsKey) => {
     setState(value);
-    if(lsKey) localStorage.setItem(lsKey, value);
+    if (lsKey) localStorage.setItem(lsKey, value);
   };
 
-  const makeVersion = () => {
-    if (versionList.length === 0) return;
+  const makeToggles = (toggleList, value, selected, setState, lsKey) => {
+    if (toggleList.length === 0) return;
 
-    return versionList.map((ver, idx) => (
+    return toggleList.map((tog, idx) => (
       <div
         key={idx}
-        className={ver === version ? "btn-child selected" : "btn-child"}
-        onClick={(e) => onClickToggles(e.target.innerText, setVersion, 'LS_VERSION')}
+        className={tog === value ? `btn-child ${selected}` : "btn-child"}
+        onClick={(e) => onClickToggles(e.target.innerText, setState, lsKey)}
       >
-        {ver}
+        {tog}
       </div>
     ));
   };
 
+  const getCountryList = () => {
+    if (version === "" || version === undefined) return;
+
+    let path = `${mnode.PATH}/${version}`;
+    mnode.getFolderList(setCountryList, path);
+  };
+
   const init = () => {
-    mnode.getVersionList(setVersionList);
+    let path = `${mnode.PATH}`;
+    mnode.getFolderList(setVersionList, path);
 
     for (let key in LOCAL_STORAGE) {
       let data = localStorage.getItem(key);
@@ -39,10 +49,28 @@ const MyToggles = ({ version, setVersion }) => {
   };
 
   useEffect(init, []);
+  useEffect(getCountryList, [version]);
 
   return (
     <div>
-      <div className="btn-set">{makeVersion()}</div>
+      <div className="btn-set">
+        {makeToggles(
+          versionList,
+          version,
+          "selected",
+          setVersion,
+          "LS_VERSION"
+        )}
+      </div>
+      <div className="btn-set">
+        {makeToggles(
+          countryList,
+          country,
+          "selected-country",
+          setCountry,
+          "LS_COUNTRY"
+        )}
+      </div>
     </div>
   );
 };
