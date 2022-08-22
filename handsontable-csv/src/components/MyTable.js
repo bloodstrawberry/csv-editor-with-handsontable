@@ -5,6 +5,7 @@ import * as lib from "./library.js";
 
 import "handsontable/dist/handsontable.full.css";
 import Handsontable from "handsontable";
+import AutoSizeInput from "./AutoSizeInput";
 
 let myTable;
 let currentRow, currentColumn;
@@ -49,10 +50,11 @@ const csvDownLoad = () => {
   return;
 };
 
-const MyTable = ({ csvFile, fileUploadFlag }) => {
+const MyTable = ({ csvFile, fileUploadFlag, file }) => {
   const [displayIndex, setDisplayIndex] = useState("");
   const [displayCell, setDisplayCell] = useState("");
-  
+  const [value, setValue] = useState("");
+
   const selectCell = () => {
     let selected = myTable.getSelectedLast();
 
@@ -102,11 +104,20 @@ const MyTable = ({ csvFile, fileUploadFlag }) => {
     init(csvFile);
   }, [csvFile]);
 
+  useEffect(() => {
+    setValue(file);
+  }, [file]);
+
   return (
     <div>
       {fileUploadFlag && (
         <div>
           <button onClick={csvDownLoad}>DOWNLOAD</button>
+          <AutoSizeInput
+              placeholder="파일 이름 입력"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+          />
           <div>
             <span>{displayIndex}</span>
             <input value={displayCell} onChange={setValueCell} />
