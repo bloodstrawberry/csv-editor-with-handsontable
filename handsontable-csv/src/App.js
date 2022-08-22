@@ -1,12 +1,8 @@
 //App.js
 import React, { useState } from "react";
 
-//import * as lib from "./components/library";
 import FileUpload from "./components/FileUpload";
 import MyTable from "./components/MyTable";
-
-//import ReduxTest from "./components/ReduxTest";
-//import AnotherReduxTest from "./components/AnotherReduxTest";
 
 const csvObjectDefault = {
   HEIGHT: 0,
@@ -14,12 +10,19 @@ const csvObjectDefault = {
   csv: [],
 };
 
+const nodeTest = () => {
+  let str = "hello";
+  let num = 1234;
+  fetch(`http://192.168.55.120:3002/nodetest?str=${str}&num=${num}`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+}
+
 const App = () => {
   const [csvObject, setCsvObject] = useState(csvObjectDefault);
   return (
     <div>
-      {/* <ReduxTest/>
-      <AnotherReduxTest/> */}
+      <button onClick={nodeTest}>서버 연결</button>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
         <FileUpload setCsvObject={setCsvObject} />
