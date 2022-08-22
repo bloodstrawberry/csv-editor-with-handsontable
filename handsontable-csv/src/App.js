@@ -12,8 +12,8 @@ const csvObjectDefault = {
 };
 
 const nodeTest = () => {
-  let path = `C:\\Users\\vvv30\\github\\csv-editor-with-handsontable\\server`;
-  mnode.getFileFolderList(path); 
+  mnode.getFileFolderList(mnode.PATH, "csv");
+  return;
 }
 
 const App = () => {
