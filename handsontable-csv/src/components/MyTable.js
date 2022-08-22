@@ -77,6 +77,8 @@ const MyTable = ({ csvFile, fileUploadFlag }) => {
   
     const container = document.getElementById("hot-app");
   
+    if(myTable !== undefined) myTable.destroy(); 
+
     myTable = new Handsontable(container, {
       data: lib.makeTable(csvFile, 2, 3),
       colHeaders: true,         /* column header는 보이게 설정 */

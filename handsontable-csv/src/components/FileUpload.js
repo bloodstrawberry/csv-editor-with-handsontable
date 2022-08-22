@@ -8,8 +8,21 @@ import "../css/FileUpload.scss";
 const FileUpload = ({ setCsvObject, fileUploadFlag, flagOn, flagOff }) => {
   const [dropFlag, setDropFlag] = useState(false);
 
+  const onClickFileLoad = () => {
+    let my_input = document.getElementById("my-input");
+    my_input.click();
+  };
+
   return (
     <div>
+      {fileUploadFlag && <button onClick={onClickFileLoad}>불러오기</button>}
+      <input
+        id="my-input"
+        style={{ visibility: "hidden" }}
+        type="file"
+        accept=".csv"
+        onChange={(e) => lib.handleUpload(e, setCsvObject, flagOn)}
+      />
       {!fileUploadFlag && (
         <div
           id="drag-drop-field"
@@ -37,7 +50,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    flagOn: () => dispatch(actionCreators.flagOn()), 
+    flagOn: () => dispatch(actionCreators.flagOn()),
     flagOff: () => dispatch(actionCreators.flagOff()),
   };
 }

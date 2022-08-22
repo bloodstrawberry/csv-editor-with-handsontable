@@ -22,8 +22,8 @@ const App = () => {
       <AnotherReduxTest/> */}
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
-        <MyTable csvFile={csvObject}/>
         <FileUpload setCsvObject={setCsvObject} />
+        <MyTable csvFile={csvObject}/>
       </div>
     </div>
   );
