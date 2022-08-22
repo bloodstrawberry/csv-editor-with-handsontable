@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import FileUpload from "./components/FileUpload";
+import MyOptions from "./components/MyOptions";
 import MyTable from "./components/MyTable";
 import * as mnode from "./components/nodelibrary";
 
@@ -20,6 +21,7 @@ const App = () => {
   const [csvObject, setCsvObject] = useState(csvObjectDefault);
   return (
     <div>
+      <MyOptions/>
       <button onClick={nodeTest}>서버 연결</button>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
