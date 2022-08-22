@@ -1,6 +1,6 @@
 //nodelibrary.js
 
-const MY_SERVER = `http://192.168.55.120:3002`;
+export const MY_SERVER = `http://192.168.55.120:3002`;
 export const PATH = `C:\\Users\\username\\Downloads\\TESTFILES`;
 
 export const getFileFolderList = (path, fileExtension) => {
@@ -19,4 +19,10 @@ export const getFileList = (path, fileExtension, setState) => {
     fetch(`${MY_SERVER}/getFileFolderList?path=${path}&fileExtension=${fileExtension}`)
     .then((response) => response.json())
     .then((data) => setState(data.fileList.map(list => list.name)));
+}
+
+export const getFile = (path) => { /* this is for just test */
+    fetch(`${MY_SERVER}/getFile?path=${path}`)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 }

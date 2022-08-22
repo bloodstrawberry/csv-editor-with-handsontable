@@ -1,3 +1,4 @@
+//App.js
 import React, { useEffect, useState } from "react";
 
 import FileUpload from "./components/FileUpload";
@@ -21,6 +22,7 @@ const App = () => {
   const [csvObject, setCsvObject] = useState(csvObjectDefault);
   const [version, setVersion] = useState("");
   const [country, setCountry] = useState("");
+  const [file, setFile] = useState("");
   const [fileList, setFileList] = useState([]);
 
   const getFileList = () => {
@@ -43,12 +45,12 @@ const App = () => {
       
       <hr style={{ borderColor: "grey" }} />
       
-      <MyFileList fileList={fileList}/>
+      <MyFileList fileList={fileList} setFile={setFile}/>
       
       <button onClick={nodeTest}>서버 연결</button>
       <button onClick={() => console.log(csvObject)}>print csv</button>
       <div className="App">
-        <FileUpload setCsvObject={setCsvObject} />
+        <FileUpload setCsvObject={setCsvObject} pathInfo={{ version, country, file }} />
         <MyTable csvFile={csvObject}/>
       </div>
     </div>

@@ -9,13 +9,13 @@ const getOptionsForVersion = (item) => {
   );
 };
 
-const MyFileList = ({fileList}) => {
+const MyFileList = ({fileList, setFile}) => {
 
   return (
     <div>
       <form>
         <span>FileName : </span>
-        <select>
+        <select onChange={(e) => setFile(e.target.value)}>
           <option value="">선택하세요.</option>
           {fileList.map((item) => getOptionsForVersion(item))}
         </select>
